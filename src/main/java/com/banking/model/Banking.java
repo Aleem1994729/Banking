@@ -12,17 +12,21 @@ public class Banking {
     private String accountholdername;
     private  double balance;
 
+    public Banking() {
+
+    }
+
     public Banking(long id,String accountholdername,double balance){
         this.id = id;
         this.accountholdername = accountholdername;
         this.balance = balance;
     }
 
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+         public void setId(Long id) {
         this.id = id;
     }
 

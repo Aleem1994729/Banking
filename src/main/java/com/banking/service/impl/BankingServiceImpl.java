@@ -23,22 +23,35 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Override
-    public BankingDto deposit(long id, double amount) {
-        Banking banking = bankingRepository.findById(id).orElseThrow(() ->  new RuntimeException ("Account does not exists"));
-        double total= banking.getBalance()+ amount;
-        banking.setBalance(total);
-        Banking savedBanking = bankingRepository.save(banking);
-        return BankingMapper.mapToBankingDto(savedBanking);
-
+    public BankingDto deposit(long id, double depositAmount) {
+        Banking yourAccount = bankingRepository.findById(id).orElseThrow(() ->  new RuntimeException ("Account does not exists"));
+        double total= yourAccount.getBalance()+ depositAmount;
+        yourAccount.setBalance(total);
+        Banking updatedAccountInDB =  bankingRepository.save(yourAccount);
+        return BankingMapper.mapToBankingDto(updatedAccountInDB);
     }
 
     @Override
-    public BankingDto withdraw(long id, double amount) {
-        Banking banking = bankingRepository.findById(id).orElseThrow(() ->  new RuntimeException ("Account does not exists"));
-        double total= banking.getBalance()- amount;
-        banking.setBalance(total);
-        Banking savedBanking = bankingRepository.save(banking);
-        return BankingMapper.mapToBankingDto(savedBanking);
+    public BankingDto withdraw(long yourAccountNumber, double withdrawAmount) {
+        Banking yourAccount = bankingRepository.findById(yourAccountNumber).orElseThrow(() ->  new RuntimeException ("Account does not exists"));
+        double total = yourAccount.getBalance()- withdrawAmount;
+        yourAccount.setBalance(total);
+        Banking updatedAccountInDB = bankingRepository.save(yourAccount);
+        return BankingMapper.mapToBankingDto(updatedAccountInDB);
+    }
+
+    @Override
+    public BankingDto saveAccount(Banking account) {
+        Banking yourSavedAccountInBD = bankingRepository.save(account);
+        return BankingMapper.mapToBankingDto(yourSavedAccountInBD);
+    }
+
+    @Override
+    public String deleteAccount(long id) {
+        Banking yourAccount= bankingRepository.findById(id).orElseThrow(() ->  new RuntimeException ("Account does not exists"));
+           bankingRepository.delete(yourAccount);
+              return "Account is deleted";
+
     }
 }
 

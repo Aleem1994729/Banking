@@ -10,4 +10,8 @@ public interface BankingService {
 
      BankingDto withdraw(long id, double amount);
 
+     BankingDto saveAccount(Banking account);
+
+      String deleteAccount( long id);
+
 }

@@ -6,6 +6,8 @@ public class BankingDto {
     private  String  accountHolderName;
     private double  balance;
 
+    public BankingDto(){}
+
     public BankingDto(Long id, String accountholdername, double balance) {
         this.id =id;
         this.accountHolderName= accountholdername;
